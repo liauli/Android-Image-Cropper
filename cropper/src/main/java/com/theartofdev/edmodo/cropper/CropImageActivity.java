@@ -21,11 +21,14 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -291,7 +294,12 @@ public class CropImageActivity extends AppCompatActivity
             mOptions.outputCompressFormat == Bitmap.CompressFormat.JPEG
                 ? ".jpg"
                 : mOptions.outputCompressFormat == Bitmap.CompressFormat.PNG ? ".png" : ".webp";
-        outputUri = Uri.fromFile(File.createTempFile("cropped", ext, getCacheDir()));
+        File file = File.createTempFile("cropped", ext, getCacheDir());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+          outputUri = FileProvider.getUriForFile(this, "com.example.croppersample"+".provider", file);
+        }else{
+          outputUri = Uri.fromFile(file);
+        }
       } catch (IOException e) {
         throw new RuntimeException("Failed to create temp file for output image", e);
       }

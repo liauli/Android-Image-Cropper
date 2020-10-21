@@ -21,6 +21,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.util.Pair;
 
@@ -37,6 +38,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 
+import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 
 /** Utility class that deals with operations with an ImageView. */
@@ -377,9 +379,12 @@ final class BitmapUtils {
     try {
       boolean needSave = true;
       if (uri == null) {
-        uri =
-            Uri.fromFile(
-                File.createTempFile("aic_state_store_temp", ".jpg", context.getCacheDir()));
+          File file = File.createTempFile("file_store_temp", ".jpg", context.getCacheDir());
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+              uri = FileProvider.getUriForFile(context, "com.example.croppersample" + ".provider", file);
+          } else {
+              uri = Uri.fromFile(file);
+          }
       } else if (new File(uri.getPath()).exists()) {
         needSave = false;
       }
