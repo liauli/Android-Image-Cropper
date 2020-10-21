@@ -298,7 +298,7 @@ public class CropImageActivity extends AppCompatActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
           outputUri = FileProvider.getUriForFile(this, "com.example.croppersample"+".provider", file);
         }else{
-          outputUri = Uri.fromFile(File.createTempFile("cropped", ext, getCacheDir()));
+          outputUri = Uri.fromFile(file);
         }
       } catch (IOException e) {
         throw new RuntimeException("Failed to create temp file for output image", e);

@@ -383,8 +383,7 @@ final class BitmapUtils {
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
               uri = FileProvider.getUriForFile(context, "com.example.croppersample" + ".provider", file);
           } else {
-              uri = Uri.fromFile(
-                      File.createTempFile("file_store_temp", ".jpg", context.getCacheDir()));
+              uri = Uri.fromFile(file);
           }
       } else if (new File(uri.getPath()).exists()) {
         needSave = false;
