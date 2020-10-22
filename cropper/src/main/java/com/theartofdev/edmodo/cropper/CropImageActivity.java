@@ -296,7 +296,7 @@ public class CropImageActivity extends AppCompatActivity
                 : mOptions.outputCompressFormat == Bitmap.CompressFormat.PNG ? ".png" : ".webp";
         File file = File.createTempFile("cropped", ext, getCacheDir());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-          outputUri = FileProvider.getUriForFile(this, "com.example.croppersample"+".provider", file);
+          outputUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName()+".provider", file);
         }else{
           outputUri = Uri.fromFile(file);
         }

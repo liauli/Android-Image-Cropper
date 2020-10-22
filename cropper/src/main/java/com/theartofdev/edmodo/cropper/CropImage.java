@@ -346,7 +346,7 @@ public final class CropImage {
     if (getImage != null) {
         File file = new File(getImage.getPath(), "pickImageResult.jpeg");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            outputFileUri = FileProvider.getUriForFile(context, "com.example.croppersample" + ".provider", file);
+            outputFileUri = FileProvider.getUriForFile(context, context.getPackageName()+ ".provider", file);
         }else{
             outputFileUri = Uri.fromFile(file);
         }
