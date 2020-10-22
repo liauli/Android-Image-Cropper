@@ -381,7 +381,7 @@ final class BitmapUtils {
       if (uri == null) {
           File file = File.createTempFile("file_store_temp", ".jpg", context.getCacheDir());
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-              uri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+              uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
           } else {
               uri = Uri.fromFile(file);
           }
